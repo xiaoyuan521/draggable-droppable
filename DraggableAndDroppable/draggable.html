@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="jquery-ui.css">
+  <script src="jquery-1.10.2.js"></script>
+  <script src="jquery-ui.js"></script>
+  <style>
+    #draggable { width: 150px; height: 150px; padding: 0.5em;border:solid 1px; }
+    .showDivDraggable {width:500px; height: 500px; border:solid 1px;}
+    #appengToDraggable {width:500px; height: 200px; border:solid 1px}
+    #juliDraggable {width:500px; height: 100px; }
+  </style>
+  <script>
+    $(function() {
+      init();
+
+    });
+
+
+    function init(){
+     var _overlapFlg = false;
+     $( "#draggable" ).draggable({
+       cursorAt: {
+        top: 25,
+        left: 25
+      },
+      cursor: "pointer",
+      scroll:true,
+      containment:".showDivDraggable",
+             /*revert:function(){
+        alert("1");
+      }*/
+      revert:function(){
+        $("#draggable").off("mouseup").on("mouseup",function(event){
+
+          var xStart=$("#appengToDraggable").offset().left;
+          var yStart=$("#appengToDraggable").offset().top;
+          var xEnd=xStart+$("#appengToDraggable").width();
+          var yEnd=yStart+$("#appengToDraggable").height();  
+
+          if((Number(xStart)<=Number(event.pageX)&&Number(event.pageX)<=Number(xEnd))&&(Number(yStart)<=Number(event.pageY)&&Number(event.pageY)<=Number(yEnd))){
+           $("#draggable").off("mouseup").on("mousedown",function(){
+
+             $( "#draggable" ).draggable({
+
+              cursor: "pointer",
+              scroll:true,
+              containment:"#appengToDraggable",
+              revert:false
+            });
+           })
+
+           return false;
+         }else{
+
+           return true;
+         }
+       });
+        return true;
+
+      },
+      appengdTo:"body"
+    });
+   }
+ </script>
+</head>
+<body>
+  <div class="showDivDraggable">
+    <div id="draggable" >
+      <p>Drag me around</p>
+    </div>
+
+
+    <div id="juliDraggable"></div>
+    <div id="appengToDraggable"></div>
+  </div>
+
+
+</body>
+</html>

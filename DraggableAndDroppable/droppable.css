@@ -1,0 +1,19 @@
+#products {
+	float:left;
+	width:500px;
+	margin-right: 2em;
+
+}
+#cart ol {
+	margin: 0; 
+	padding: 1em 0 1em 3em; 
+}
+#cart {
+	float:left;
+	width:200px;
+	margin-top: 1em;
+}
+h1 {
+	padding: .2em;
+	margin: 0; 
+}
